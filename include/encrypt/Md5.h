@@ -26,10 +26,10 @@ namespace QQDommy
 #define I(x, y, z) ((y) ^ ((x) | (~z)))
 #define ROTATE(v, n) ((v << n) | (v >> (32 - n)))
 
-    inline static void FF(uint32_t &a, uint32_t &b, uint32_t &c, uint32_t &d, uint32_t *x, uint32_t s,uint32_t ac);
-    inline static void GG(uint32_t &a, uint32_t &b, uint32_t &c, uint32_t &d, uint32_t *x, uint32_t s,uint32_t ac);
-    inline static void HH(uint32_t &a, uint32_t &b, uint32_t &c, uint32_t &d, uint32_t *x, uint32_t s,uint32_t ac);
-    inline static void II(uint32_t &a, uint32_t &b, uint32_t &c, uint32_t &d, uint32_t *x, uint32_t s,uint32_t ac);
+    inline static void FF(uint32_t &a, uint32_t &b, uint32_t &c, uint32_t &d, uint32_t x, uint32_t s,uint32_t ac);
+    inline static void GG(uint32_t &a, uint32_t &b, uint32_t &c, uint32_t &d, uint32_t x, uint32_t s,uint32_t ac);
+    inline static void HH(uint32_t &a, uint32_t &b, uint32_t &c, uint32_t &d, uint32_t x, uint32_t s,uint32_t ac);
+    inline static void II(uint32_t &a, uint32_t &b, uint32_t &c, uint32_t &d, uint32_t x, uint32_t s,uint32_t ac);
 
     /// @brief A,B,C,D
     const static std::vector<uint32_t> MD5_STATES = {
@@ -51,7 +51,7 @@ namespace QQDommy
         /// @brief the original data
         std::vector<uint8_t> raw;
         void transform(size_t startIndex);
-
+        void padding();
     public:
         /**
          * @brief Construct a new Md 5 Processor object, holding a string
