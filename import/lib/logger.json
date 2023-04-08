@@ -1,0 +1,25 @@
+{
+    "elements": [
+        {
+            "name": "constantString",
+            "value": "::"
+        },
+        {
+            "name": "time",
+            "value": "%y-%m-%d %H:%M:%S"
+        },
+        {
+            "name": "constantString",
+            "value": "::"
+        }
+    ],
+    "streams": [
+        {
+            "name": "console"
+        },
+        {
+            "name": "file",
+            "outputDir": "test.log"
+        }
+    ]
+}
