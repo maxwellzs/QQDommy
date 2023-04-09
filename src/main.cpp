@@ -27,7 +27,7 @@ void test_buffer()
 void test_md5() {
     using namespace QQDommy;
     ByteBuffer out;
-    Md5Processor p("admin");
+    Md5Processor p("abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd");
     p.digest32(out);
     DEBUG_ASYN(out.toHexString());
 }

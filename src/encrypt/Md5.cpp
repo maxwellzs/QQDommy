@@ -81,6 +81,14 @@ void QQDommy::Md5Processor::transform(size_t startIndex)
     magicNumber[3] += d;
 }
 
+void QQDommy::Md5Processor::writeBuffer(ByteBuffer &buf, uint32_t value)
+{
+    buf.write_uint8(value & 0xff);
+    buf.write_uint8((value >> 8) &0xff);
+    buf.write_uint8((value >> 16) & 0xff);
+    buf.write_uint8((value >> 24) &0xff);
+}
+
 void QQDommy::Md5Processor::padding()
 {
     // pad 10000.... until mod 512 is 448
@@ -140,10 +148,11 @@ void QQDommy::Md5Processor::digest32(ByteBuffer &output)
         block++;
     }
     // turn magic to buffer
-    output.write_uint32(magicNumber[0]);
-    output.write_uint32(magicNumber[1]);
-    output.write_uint32(magicNumber[2]);
-    output.write_uint32(magicNumber[3]);
+    writeBuffer(output,magicNumber[0]);
+    writeBuffer(output,magicNumber[1]);
+    writeBuffer(output,magicNumber[2]);
+    writeBuffer(output,magicNumber[3]);
+
     // reset magic number
     magicNumber.clear();
     magicNumber = {MD5_STATES[0],MD5_STATES[1],MD5_STATES[2],MD5_STATES[3]};

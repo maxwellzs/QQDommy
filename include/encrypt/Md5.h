@@ -42,6 +42,7 @@ namespace QQDommy
         std::vector<uint8_t> raw;
         std::vector<uint32_t> magicNumber = {MD5_STATES[0],MD5_STATES[1],MD5_STATES[2],MD5_STATES[3]};
         void transform(size_t startIndex);
+        void writeBuffer(ByteBuffer &buf,uint32_t value);
         void padding();
         /**
          * @brief decode the given bytes into vector of vec<int32>
