@@ -48,9 +48,10 @@ QQDommy::ByteBuffer::~ByteBuffer()
         delete data;
 }
 
-#define check_before_write         \
-    this->check_resize(sizeof(v)); \
-    check_readOnly();
+#define check_before_write  \
+    check_readOnly();       \
+    this->check_resize(sizeof(v));
+    
 
 QQDommy::ByteBuffer &QQDommy::ByteBuffer::write_uint8(uint8_t v)
 {
@@ -202,6 +203,14 @@ QQDommy::ByteBuffer QQDommy::ByteBuffer::slice(size_t offset, size_t length)
     // no writing the read only
     inherit.isReadOnly = true;
     return inherit;
+}
+
+QQDommy::ByteBuffer &QQDommy::ByteBuffer::doVisit(const BufferVisitor &visitor)
+{
+    // TODO: 在此处插入 return 语句
+    // let visitor to visit this
+    visitor.visit(*this);
+    return *this;
 }
 
 QQDommy::IllegalHexExprException::IllegalHexExprException(const std::string &expr)

@@ -27,6 +27,20 @@
 namespace QQDommy
 {
 
+    class ByteBuffer;
+
+    /**
+     * @brief a base class that can visit the buffer and operate write
+     *
+     */
+    class BufferVisitor
+    {
+    public:
+        /// @brief visit the buffer and conduct operate
+        /// @param ref the reference of the buffer
+        virtual void visit(ByteBuffer &ref) const = 0;
+    };
+
     /**
      * @brief thrown when passing a maleformed hex string to bytebuffer
      *
@@ -72,7 +86,7 @@ namespace QQDommy
         size_t readIndex = 0;
         size_t writeIndex = 0;
         size_t capacity = DEFAULT_BUFFER_SIZE;
-        /// @brief if writing an read only buffer . throw a @ReadOnlyBufferException 
+        /// @brief if writing an read only buffer . throw a @ReadOnlyBufferException
         bool isReadOnly = false;
         void resize();
         /**
@@ -83,6 +97,7 @@ namespace QQDommy
         void check_resize(size_t s);
         void check_readOnly();
         void check_outOfBound(size_t val);
+
     public:
         /// @brief create an empty buffer
         ByteBuffer();
@@ -100,7 +115,7 @@ namespace QQDommy
 
         /**
          * @brief read integer value in the form of big endain
-         * 
+         *
          * @return the integer value
          */
         uint8_t read_uint8();
@@ -126,21 +141,29 @@ namespace QQDommy
         ByteBuffer &writeHexString(const std::string &expr);
         /**
          * @brief write a std::vector<uint8_t> into the buffer
-         * 
+         *
          * @return ByteBuffer& this
          */
         ByteBuffer &writeByteVector(const std::vector<uint8_t> &expr);
 
         /**
-         * @brief slice will return a new byte buffer with new pointer 
+         * @brief slice will return a new byte buffer with new pointer
          * and new read & write index
          * the returned buffer is READ ONLY
-         * 
+         *
          * @param length the length to cut from the beginning of the buffer
          * @return ByteBuffer the new buffer
          */
         ByteBuffer slice(size_t length);
-        ByteBuffer slice(size_t offset,size_t length);
+        ByteBuffer slice(size_t offset, size_t length);
+
+        /**
+         * @brief let the visitor to visit the buffer
+         * 
+         * @param visitor the visitor object
+         * @return ByteBuffer& this
+         */
+        ByteBuffer &doVisit(const BufferVisitor &visitor);
     };
 
 };
