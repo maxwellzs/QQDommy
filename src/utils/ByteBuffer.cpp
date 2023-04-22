@@ -43,8 +43,7 @@ QQDommy::ByteBuffer::ByteBuffer()
 QQDommy::ByteBuffer::~ByteBuffer()
 {
     // initialize buffer
-
-    if (!isReadOnly)
+    if (!isReadOnly && data != nullptr)
         delete data;
 }
 
@@ -181,6 +180,15 @@ QQDommy::ByteBuffer &QQDommy::ByteBuffer::writeByteVector(const std::vector<uint
     for (auto i = expr.begin(); i != expr.end(); i++)
     {
         write_uint8(*i);
+    }
+    return *this;
+}
+
+QQDommy::ByteBuffer &QQDommy::ByteBuffer::writeBuffer(ByteBuffer &ref)
+{
+    // TODO: 在此处插入 return 语句
+    while(ref.readIndex < ref.writeIndex) {
+        write_uint8(ref.read_uint8());
     }
     return *this;
 }

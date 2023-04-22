@@ -147,6 +147,14 @@ namespace QQDommy
         ByteBuffer &writeByteVector(const std::vector<uint8_t> &expr);
 
         /**
+         * @brief append the data in another buffer
+         * 
+         * @param ref another buffer
+         * @return ByteBuffer& this object
+         */
+        ByteBuffer &writeBuffer(ByteBuffer &ref);
+
+        /**
          * @brief slice will return a new byte buffer with new pointer
          * and new read & write index
          * the returned buffer is READ ONLY

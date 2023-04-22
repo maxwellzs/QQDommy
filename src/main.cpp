@@ -11,7 +11,7 @@ void test_vistor();
 int main(int args, char **argv)
 {
     DEBUG_ASYN("test started");
-    test_vistor();
+    test_md5();
 
     CLEAN_UP
     return 0;
@@ -20,18 +20,16 @@ int main(int args, char **argv)
 void test_buffer()
 {
     using namespace QQDommy;
-    ByteBuffer b;
-    b.writeByteVector({0xab,0xbc,0xab,0xcd,0x0});
-    b.read_uint16Be();
-    b.read_uint8();
+    ByteBuffer b,c;
+    b.writeHexString("1A 2B 3C 4D");
+    c.writeBuffer(b);
+    DEBUG_ASYN(c.toHexString());
 }
 
 void test_md5() {
     using namespace QQDommy;
-    ByteBuffer out;
-    Md5Processor p("abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd");
-    p.digest32(out);
-    DEBUG_ASYN(out.toHexString());
+    ByteBuffer b = Md5Processor("admin").digest32();
+    DEBUG_ASYN(b.toHexString());
 }
 
 void test_vistor()

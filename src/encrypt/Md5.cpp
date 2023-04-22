@@ -138,10 +138,11 @@ QQDommy::Md5Processor::Md5Processor(const std::string &rawString)
     padding();
 }
 
-void QQDommy::Md5Processor::digest32(ByteBuffer &output)
+QQDommy::ByteBuffer QQDommy::Md5Processor::digest32()
 {
     size_t block = 0;
     size_t all = (raw.size() * 8) / 512;
+    ByteBuffer output;
     while (block < all)
     {
         transform(block * 64);
@@ -156,6 +157,8 @@ void QQDommy::Md5Processor::digest32(ByteBuffer &output)
     // reset magic number
     magicNumber.clear();
     magicNumber = {MD5_STATES[0],MD5_STATES[1],MD5_STATES[2],MD5_STATES[3]};
+
+    return output;
 }
 
 void QQDommy::FF(uint32_t &a, uint32_t &b, uint32_t &c, uint32_t &d, uint32_t x, uint32_t s, uint32_t ac)

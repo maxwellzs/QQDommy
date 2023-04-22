@@ -63,10 +63,9 @@ namespace QQDommy
         /**
          * @brief digest the raw and return the 32 bit digest result
          * 
-         * @param output the output buffer that will hold the result
          * @return ByteBuffer the buffer holding the result
          */
-        void digest32(ByteBuffer &output);
+        ByteBuffer digest32();
     };
 
 };
